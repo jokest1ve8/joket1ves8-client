@@ -20,7 +20,7 @@
     <nav class="navbar  navbar-light bg-warning navbar-fixed-top">
         <a class="navbar-brand"> <strong> Jokest1ve8 </strong></a>
         <div class="form-inline">
-            <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" type="submit">Logout</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" type="submit" id="logout-btn">Logout</button>
         </div>
     </nav>
 
@@ -50,6 +50,14 @@
         <h1 class="alert text-info text-center">Register Page</h1>
 
         <div class="form-group">
+            <label for="InputFirstname">First name</label>
+            <input type="text" class="form-control" id="InputFirstname">
+        </div>
+        <div class="form-group">
+            <label for="InputLastname">Last name</label>
+            <input type="text" class="form-control" id="InputLastname">
+        </div>
+        <div class="form-group">
             <label for="InputEmail">Email address</label>
             <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -59,6 +67,10 @@
             <input type="password" class="form-control" id="InputPassword">
         </div>
         <button type="submit" class="btn btn-info btn-block">Submit</button>
+        <br>
+        <p style="text-align: center;">already have account? <a href="" onclick="showLogin()">login</a></p>
+        <br>
+        <a href="" onclick="showLogin()">login</a>
     </form>
 
     <!-- Main Page -->
@@ -134,8 +146,7 @@
                 $("#mainPage").hide()
                 $("#register-form").show()
                 $("#addNew").hide()
-
-
+                $("#logout-btn").hide()
             }
             function showLogin(){
                 $("#loginPage").show()
@@ -143,12 +154,15 @@
                 $("#mainPage").hide()
                 $("#addNew").hide()
 
+                $("#logout-btn").hide()
             }
             function mainPage(){
                 $("#loginPage").hide()
                 $("#register-form").hide()
                 $("#mainPage").show()
                 $("#addNew").hide()
+                $("#logout-btn").show()
+
 
             }
 
@@ -157,6 +171,8 @@
                 $("#register-form").hide()
                 $("#mainPage").hide()
                 $("#addNew").show()
+                $("#logout-btn").show()
+                
             }
             function logout(){
                 localStorage.clear();
@@ -184,6 +200,7 @@
                     e.preventDefault();
                     showLogin()
                 })
+                
 
             })
         </script>
