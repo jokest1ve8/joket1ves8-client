@@ -20,7 +20,7 @@
     <nav class="navbar  navbar-light bg-warning navbar-fixed-top">
         <a class="navbar-brand"> <strong> Jokest1ve8 </strong></a>
         <div class="form-inline">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" type="submit">Logout</button>
         </div>
     </nav>
 
@@ -63,7 +63,7 @@
 
     <!-- Main Page -->
     <div class="container-fluid text-white text-center mt-10" id="mainPage" >
-        <button type="button" id="btn-add" class="btn btn-warning btn-lg">&#128512 Bring me your Jokes &#128512</button>
+        <button type="button" id="btn-add" onclick="createPage()" class="btn btn-warning btn-lg">&#128512 Bring me your Jokes &#128512</button>
         <br><br>
         <div class="row">
             <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
@@ -93,7 +93,25 @@
         </div>
     </div>
 
+    <!-- add new Jokes -->
 
+    <div class=" jumbotron" id="addNew">
+        <h1 class="alert text-dark text-center"> <strong>Your Jokes </strong></h1>
+        <form id="create-form" class="container">
+            <div class="form-group col-5 ">
+                <label class="text-dark" for="newUrl"> <b>Url Picture </b> </label>
+                <input type="email" class="form-control" id="newUrl" placeholder="put the url link of your picture here" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group col-5">
+                <label class="text-dark"  for="newCaption"> <b> Caption</b></label>
+                <input type="text" id="caption" class="form-control" id="newCaption">
+            </div>
+            <br><br>
+            <div class="text-center">
+                <button type="submit" class="btn btn-warning btn-lg w-50 ">Add Joke</button>
+            </div>
+        </form>
+    </div>
 
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
@@ -115,21 +133,44 @@
                 $("#loginPage").hide()
                 $("#mainPage").hide()
                 $("#register-form").show()
+                $("#addNew").hide()
+
 
             }
             function showLogin(){
                 $("#loginPage").show()
                 $("#register-form").hide()
                 $("#mainPage").hide()
+                $("#addNew").hide()
+
             }
             function mainPage(){
                 $("#loginPage").hide()
                 $("#register-form").hide()
                 $("#mainPage").show()
+                $("#addNew").hide()
+
             }
+
+            function createPage(){
+                $("#loginPage").hide()
+                $("#register-form").hide()
+                $("#mainPage").hide()
+                $("#addNew").show()
+            }
+            function logout(){
+                localStorage.clear();
+                showLogin()
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                console.log('User signed out.');
+                });
+            }
+
 
             $(document).ready(() =>{
                 if(localStorage.getItem('access_token')){
+                    mainPage()
 
                 } else {
                     showLogin()
@@ -138,6 +179,10 @@
                 $("#login-form").on('submit' , function (e) {
                     e.preventDefault();
                     mainPage()
+                })
+                $("#register-form").on('submit' , function (e) {
+                    e.preventDefault();
+                    showLogin()
                 })
 
             })
