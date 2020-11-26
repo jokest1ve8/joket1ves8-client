@@ -17,7 +17,7 @@
 <body>
     
     <!-- Navbar -->
-    <nav class="navbar  navbar-light bg-warning navbar-fixed-top">
+    <nav class="navbar  navbar-light bg-warning navbar-fixed-top" id="nav">
         <a class="navbar-brand"> <strong> Jokest1ve8 </strong></a>
         <div class="form-inline">
             <button class="btn btn-outline-success my-2 my-sm-0" onclick="logout()" type="submit" id="logout-btn">Logout</button>
@@ -47,6 +47,7 @@
 
     <!-- Register Form -->
     <form id="register-form" class="container">
+        <br><br>
         <h1 class="alert text-info text-center">Register Page</h1>
 
         <div class="form-group">
@@ -68,9 +69,8 @@
         </div>
         <button type="submit" class="btn btn-info btn-block">Submit</button>
         <br>
-        <p style="text-align: center;">already have account? <a href="" onclick="showLogin()">login</a></p>
+        <p style="text-align: center;">already have an   account? <a href="" onclick="showLogin()">login</a></p>
         <br>
-        <a href="" onclick="showLogin()">login</a>
     </form>
 
     <!-- Main Page -->
@@ -121,6 +121,8 @@
             <br><br>
             <div class="text-center">
                 <button type="submit" class="btn btn-warning btn-lg w-50 ">Add Joke</button>
+                <br><br>
+                <button type="button" onclick="mainPage()" class="btn btn-warning btn-lg w-50 ">cancel &#128546</button>
             </div>
         </form>
     </div>
@@ -201,7 +203,6 @@
                     showLogin()
                 })
                 
-
             })
         </script>
 
