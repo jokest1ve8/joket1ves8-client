@@ -191,7 +191,7 @@
                 const email = $('#loginInputEmail').val()
                 const password = $('#loginInputPassword').val()
                 $.ajax({
-                    url:"http://localhost:3000/login",
+                    url:baseUrl+'/login',
                     method:"POST",
                     data:{
                         email,
@@ -200,7 +200,7 @@
                 })
                 .done(response => {
                     localStorage.setItem('access_token',response.access_token)
-                    //mainPage();
+                    mainPage();
                 })
                 .fail(err => {
                     console.log(err);
@@ -218,7 +218,7 @@
                 const password=$("#InputPassword").val()
 
                 $.ajax({
-                    url:"http://localhost:3000/register",
+                    url:baseUrl+'/register',
                     method:"POST",
                     data:{
                         firstname,
