@@ -89,6 +89,9 @@
         <!-- <button type="button" id="btn-myJokes" onclick="createPage()" class="btn btn-outline-dark btn-lg ml-1">Your Jokes</button> -->
         </div>
         <br><br>
+        <div id="weather">
+
+        </div>
         <div class="row" id="listJokesMainPage">
 
 
@@ -103,7 +106,7 @@
         </div>
         
         <br><br>
-        <div class="row" id="listRandomDadJoke">
+        <div class="row" id="listRandomDadJoke" style="color: black;" >
 
 
         </div>
@@ -138,7 +141,7 @@
         <br><br><br>
         <h1 style="font-family: 'Courier New', Courier, monospace; font-weight: bold;" class="text-dark">All of Your Jokes</h1>
         <hr class="my-4">
-        <button type="button" onclick="mainPage()" class="btn btn-secondary btn-sm ">&#8678 Back</button>
+        <button type="button" onclick="mainPage()" class="btn btn-secondary btn-sm " >&#8678 Back</button>
         <br><br>
         <div class="row" id="listJokesUserPage">
             
@@ -395,9 +398,10 @@
 
             // 7 Timer API
             function weather(position){
-                $('#mainPage').append(
+                $('#weather').append(
                   `
                     <img src='http://www.7timer.info/bin/civil.php?lon=${position.coords.longitude}&lat=${position.coords.latitude}&ac=0&lang=en&unit=metric&output=internal&tzshift=0'/>
+                    
                   `
                  )
             }
@@ -420,6 +424,8 @@
                     //showLogin()
                     register();
                 })
+                
+                
 
             })
         </script>
