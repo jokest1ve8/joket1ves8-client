@@ -318,6 +318,16 @@
                     console.log(err)
                 })
             }
+
+            // 7 Timer API
+            function weather(position){
+                $('#mainPage').append(
+                  `
+                    <img src='http://www.7timer.info/bin/civil.php?lon=${position.coords.longitude}&lat=${position.coords.latitude}&ac=0&lang=en&unit=metric&output=internal&tzshift=0'/>
+                  `
+                 )
+            }
+
             $(document).ready(() =>{
                 if(localStorage.getItem('access_token')){
                     mainPage()
@@ -336,7 +346,8 @@
                     //showLogin()
                     register();
                 })
-                
+                // 7 Timer API
+                navigator.geolocation.getCurrentPosition(weather)
             })
         </script>
 
