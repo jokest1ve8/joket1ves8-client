@@ -31,12 +31,12 @@
             <form id="login-form" class="container">
                 <div class="form-group col-5 ">
                     <label class="text-warning" for="loginInputEmail">Email address</label>
-                    <input type="email" class="form-control" id="loginInputEmail" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="loginInputEmail" aria-describedby="emailHelp" required>
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group col-5">
                     <label class="text-warning" for="loginInputPassword">Password</label>
-                    <input type="password" class="form-control" id="loginInputPassword">
+                    <input type="password" class="form-control" id="loginInputPassword" required>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-warning btn-lg ">Login</button>
@@ -52,7 +52,7 @@
 
         <div class="form-group">
             <label for="InputFirstname">First name</label>
-            <input type="text" class="form-control" id="InputFirstname">
+            <input type="text" class="form-control" id="InputFirstname" required>
         </div>
         <div class="form-group">
             <label for="InputLastname">Last name</label>
@@ -60,12 +60,12 @@
         </div>
         <div class="form-group">
             <label for="InputEmail">Email address</label>
-            <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp">
+            <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" required>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
             <label for="InputPassword">Password</label>
-            <input type="password" class="form-control" id="InputPassword">
+            <input type="password" class="form-control" id="InputPassword" required>
         </div>
         <button type="submit" class="btn btn-info btn-block">Submit</button>
         <br>
@@ -77,31 +77,9 @@
     <div class="container-fluid text-white text-center mt-10" id="mainPage" >
         <button type="button" id="btn-add" onclick="createPage()" class="btn btn-warning btn-lg">&#128512 Bring me your Jokes &#128512</button>
         <br><br>
-        <div class="row">
-            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
-                <img src="https://awsimages.detik.net.id/community/media/visual/2020/08/11/meme-beda-anak-twitter-vs-anak-instagram-kamu-yang-mana-5.png?w=750&q=90"
-                    class="card-img-top">
-                <div class="card">
-                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
-                        bulk of the card's content.</p>
-                </div>
-            </div>
-            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDIcyTO8Fw2T1yVyI3R73_4XoUyl5c05-AcQ&usqp=CAU"
-                    class="card-img-top">
-                <div class="card">
-                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
-                        bulk of the card's content.</p>
-                </div>
-            </div>
-            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
-                <img src="https://cdn.kinsights.com/cache/82/51/825185b61ee204ce35a5aa9495c73adf.jpg"
-                    class="card-img-top">
-                <div class="card">
-                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
-                        bulk of the card's content.</p>
-                </div>
-            </div>
+        <div class="row" id="listJokesMainPage">
+
+
         </div>
     </div>
 
@@ -127,6 +105,17 @@
         </form>
     </div>
 
+    <!-- userPage -->
+    
+    <div class="container-fluid text-white text-center mt-10" id="userPage" >
+        <button type="button" id="btn-add" onclick="createPage()" class="btn btn-warning btn-lg">&#128512 Bring me your Jokes &#128512</button>
+        <br><br>
+        <div class="row" id="listJokesUserPage">
+            
+        </div>
+        
+    </div>
+
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -150,13 +139,14 @@
                 $("#register-form").show()
                 $("#addNew").hide()
                 $("#logout-btn").hide()
+                $("#userPage").hide()
             }
             function showLogin(){
                 $("#loginPage").show()
                 $("#register-form").hide()
                 $("#mainPage").hide()
                 $("#addNew").hide()
-
+                $("#userPage").hide()
                 $("#logout-btn").hide()
             }
             function mainPage(){
@@ -165,7 +155,7 @@
                 $("#mainPage").show()
                 $("#addNew").hide()
                 $("#logout-btn").show()
-
+                $("#userPage").hide()
 
             }
 
@@ -175,6 +165,17 @@
                 $("#mainPage").hide()
                 $("#addNew").show()
                 $("#logout-btn").show()
+                $("#userPage").hide()
+                
+            }
+
+            function userPage(){
+                $("#loginPage").hide()
+                $("#register-form").hide()
+                $("#mainPage").hide()
+                $("#addNew").hide()
+                $("#logout-btn").show()
+                $("#userPage").show()
                 
             }
             function logout(){
@@ -184,6 +185,59 @@
                 auth2.signOut().then(function () {
                 console.log('User signed out.');
                 });
+            }
+
+            function fetchJokes(){
+                $("#listJokesMainPage").empty()
+                $.ajax({
+                    url: "http://localhost:3000/jokes",
+                    method: "GET",
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    }
+                })
+                .done(response => {
+                    for(let i  = 0; i < response.length; i++){
+                        $("#listJokesMainPage").append(` 
+                        <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
+                            <img src="${response[i].imageUrl}"
+                                class="card-img-top">
+                            <div class="card">
+                                <p class="card-text text-body">${response[i].description}</p>
+                            </div>
+                        </div>`)
+                    }
+                })
+                .fail(error => {
+                    console.log(error)
+                })
+            }
+
+            function fetchJokesUser(){
+                $("#listJokesUserPage").empty()
+                $.ajax({
+                    url: "http://localhost:3000/jokes",
+                    method: "GET",
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    }
+                })
+                .done(response => {
+                    for(let i  = 0; i < response.length; i++){
+                        $("#listJokesUserPage").append(` 
+                        <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
+                            <img src="${response[i].imageUrl}"
+                                class="card-img-top">
+                            <div class="card">
+                                <p class="card-text text-body">${response[i].description}</p>
+                                <button type="button" id="btn-delete" onclick="deleteJoke(${response[i].id})" class="btn btn-warning btn-lg"> Delete &#128546</button>
+                            </div>
+                        </div>`)
+                    }
+                })
+                .fail(error => {
+                    console.log(error)
+                })
             }
 
             function login(){
