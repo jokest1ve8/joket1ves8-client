@@ -78,6 +78,7 @@
         <div class=" d-flex justify-content-center ">
         <button type="button" id="btn-add" onclick="createPage()" class="btn btn-warning btn-lg mr-1">&#128512 Bring me your Jokes &#128512</button>
         <button type="button" id="btn-myjokes" onclick="myJokes()" class="btn btn-outline-dark btn-lg mr-1">Your Jokes</button>
+        <button type="button" id="btn-myjokes" onclick="dadJokes()" class="btn btn-outline-dark btn-lg mr-1">Dad Jokes &#129312</button>
         <!-- <button type="button" id="btn-myJokes" onclick="createPage()" class="btn btn-outline-dark btn-lg ml-1">Your Jokes</button> -->
         </div>
         <br><br>
@@ -86,6 +87,22 @@
 
         </div>
     </div>
+
+    <!-- random dad joke -->
+
+    <div class="container-fluid text-white text-center mt-10" id="dadJokePage" >
+        <div class=" d-flex justify-content-center ">
+        <button type="button" id="btn-add" onclick="randomDadJoke()" class="btn btn-warning btn-lg mr-1">click me &#128512</button>   
+        </div>
+        
+        <br><br>
+        <div class="row" id="listRandomDadJoke">
+
+
+        </div>
+        <button type="button" onclick="mainPage()" class="btn btn-secondary btn-sm ">&#8678 Back</button>
+    </div>
+
 
     <!-- add new Jokes -->
 
@@ -148,6 +165,8 @@
                 $("#addNew").hide()
                 $("#myJokes").hide()
                 $("#logout-btn").hide()
+                $("#dadJokePage").hide()
+                
                 
             }
             function showLogin(){
@@ -157,6 +176,7 @@
                 $("#addNew").hide()
                 $("#myJokes").hide()
                 $("#logout-btn").hide()
+                $("#dadJokePage").hide()
             }
             function mainPage(){
                 $("#loginPage").hide()
@@ -165,9 +185,19 @@
                 $("#addNew").hide()
                 $("#logout-btn").show()
                 $("#myJokes").hide()
-                
-
+                $("#dadJokePage").hide()
             }
+
+            function dadJokes(){
+                $("#loginPage").hide()
+                $("#register-form").hide()
+                $("#mainPage").hide()
+                $("#addNew").hide()
+                $("#logout-btn").show()
+                $("#myJokes").hide()
+                $("#dadJokePage").show()
+            }
+
             function myJokes(){
                 $("#loginPage").hide()
                 $("#register-form").hide()
@@ -175,6 +205,7 @@
                 $("#addNew").hide()
                 $("#myJokes").show()
                 $("#logout-btn").show()
+                $("#dadJokePage").hide()
             }
 
             function createPage(){
@@ -184,8 +215,7 @@
                 $("#addNew").show()
                 $("#logout-btn").show()
                 $("#myJokes").hide()
-                
-                
+                $("#dadJokePage").hide()
             }
             function logout(){
                 localStorage.clear();
@@ -303,6 +333,23 @@
                 })
             }
 
+            function randomDadJoke(){
+                $("#listRandomDadJoke").empty()
+                $.ajax({
+                    url: "http://localhost:3000/randomDadJoke",
+                    method: "GET",
+                    headers: {
+                        access_token: localStorage.getItem('access_token')
+                    }
+                })
+                .done(response => {
+                    $("#listRandomDadJoke").append(`<h3>${response.joke}</h3>`)
+                })
+                .fail(error => {
+                    console.log(error)
+                })
+            }
+
             function deleteJoke(id){
                 $.ajax({
                     url:baseUrl+'/jokes/'+id,
@@ -336,7 +383,6 @@
                     //showLogin()
                     register();
                 })
-                
             })
         </script>
 
