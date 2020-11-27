@@ -287,9 +287,10 @@
                                 class="card-img-top">
                             <div class="card">
                                 <p class="card-text text-body">${response[i].description}</p>
-                                <button type="button" id="btn-delete" onclick="deleteJoke(${response[i].id})" class="btn btn-warning btn-lg"> Delete &#128546</button>
+                                <button type="button" id="btn-delete" onclick="deleteJoke(${response[i].id})" class="btn btn-outline-danger"> Delete &#128546</button>
                             </div>
                         </div>`)
+
                     }
                 })
                 .fail(error => {
