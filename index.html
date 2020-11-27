@@ -116,50 +116,13 @@
         <hr class="my-4">
         <button type="button" onclick="mainPage()" class="btn btn-secondary btn-sm ">&#8678 Back</button>
         <br><br>
-        <div class="row">
-            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
-                <button type="button" onclick="deleteJoke()" class="btn btn-outline-danger">DELETE</button>
-                <img src="https://awsimages.detik.net.id/community/media/visual/2020/08/11/meme-beda-anak-twitter-vs-anak-instagram-kamu-yang-mana-5.png?w=750&q=90"
-                    class="card-img-top">
-                <div class="card">
-                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
-                        bulk of the card's content.</p>
-                </div>
-            </div>
-            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
-                <button type="button" class="btn btn-outline-danger">DELETE</button>
-
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDIcyTO8Fw2T1yVyI3R73_4XoUyl5c05-AcQ&usqp=CAU"
-                    class="card-img-top">
-                <div class="card">
-                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
-                        bulk of the card's content.</p>
-                </div>
-            </div>
-            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
-                <button type="button" class="btn btn-outline-danger">DELETE</button>
-
-                <img src="https://cdn.kinsights.com/cache/82/51/825185b61ee204ce35a5aa9495c73adf.jpg"
-                    class="card-img-top">
-                <div class="card">
-                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
-                        bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- userPage -->
-    
-    <div class="container-fluid text-white text-center mt-10" id="userPage" >
-        <button type="button" id="btn-add" onclick="createPage()" class="btn btn-warning btn-lg">&#128512 Bring me your Jokes &#128512</button>
-        <br><br>
         <div class="row" id="listJokesUserPage">
             
         </div>
-        
     </div>
+
+
+    
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -185,7 +148,7 @@
                 $("#addNew").hide()
                 $("#myJokes").hide()
                 $("#logout-btn").hide()
-                $("#userPage").hide()
+                
             }
             function showLogin(){
                 $("#loginPage").show()
@@ -193,7 +156,6 @@
                 $("#mainPage").hide()
                 $("#addNew").hide()
                 $("#myJokes").hide()
-                $("#userPage").hide()
                 $("#logout-btn").hide()
             }
             function mainPage(){
@@ -203,7 +165,7 @@
                 $("#addNew").hide()
                 $("#logout-btn").show()
                 $("#myJokes").hide()
-                $("#userPage").hide()
+                
 
             }
             function myJokes(){
@@ -222,17 +184,7 @@
                 $("#addNew").show()
                 $("#logout-btn").show()
                 $("#myJokes").hide()
-                $("#userPage").hide()
                 
-            }
-
-            function userPage(){
-                $("#loginPage").hide()
-                $("#register-form").hide()
-                $("#mainPage").hide()
-                $("#addNew").hide()
-                $("#logout-btn").show()
-                $("#userPage").show()
                 
             }
             function logout(){
@@ -283,11 +235,11 @@
                     for(let i  = 0; i < response.length; i++){
                         $("#listJokesUserPage").append(` 
                         <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
+                            <button type="button" onclick="deleteJoke(${response[i].id})" class="btn btn-outline-danger">DELETE</button>
                             <img src="${response[i].imageUrl}"
                                 class="card-img-top">
                             <div class="card">
                                 <p class="card-text text-body">${response[i].description}</p>
-                                <button type="button" id="btn-delete" onclick="deleteJoke(${response[i].id})" class="btn btn-warning btn-lg"> Delete &#128546</button>
                             </div>
                         </div>`)
                     }
