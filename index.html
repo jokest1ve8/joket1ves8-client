@@ -89,6 +89,9 @@
         <!-- <button type="button" id="btn-myJokes" onclick="createPage()" class="btn btn-outline-dark btn-lg ml-1">Your Jokes</button> -->
         </div>
         <br><br>
+        <div id="weather">
+
+        </div>
         <div class="row" id="listJokesMainPage">
 
 
@@ -103,7 +106,7 @@
         </div>
         
         <br><br>
-        <div class="row" id="listRandomDadJoke">
+        <div class="row" id="listRandomDadJoke" style="color: black;" >
 
 
         </div>
@@ -138,7 +141,7 @@
         <br><br><br>
         <h1 style="font-family: 'Courier New', Courier, monospace; font-weight: bold;" class="text-dark">All of Your Jokes</h1>
         <hr class="my-4">
-        <button type="button" onclick="mainPage()" class="btn btn-secondary btn-sm ">&#8678 Back</button>
+        <button type="button" onclick="mainPage()" class="btn btn-secondary btn-sm " >&#8678 Back</button>
         <br><br>
         <div class="row" id="listJokesUserPage">
             
@@ -379,23 +382,23 @@
             }
 
             function createNew(payload){
-        let access_token = localStorage.access_token
-            $.ajax({
-                method : "POST",
-                url : `${baseUrl}/jokes`,
-                data :payload,
-                headers: {access_token}
-            })
-            .done(response =>{
-                console.log(response)
-                fetchJokes()
-                $("#addNew").trigger("reset")
+                let access_token = localStorage.access_token
+                $.ajax({
+                    method : "POST",
+                    url : 'http://localhost:3000/jokes',
+                    data :payload,
+                    headers: {access_token}
+                })
+                .done(response =>{
+                    console.log(response)
+                    fetchJokes()
+                    $("#addNew").trigger("reset")
 
-            })
-            .fail((err, text) =>{
-                console.log('>>>',err)
-                console.log(text)
-            })
+                })
+                .fail((err, text) =>{
+                    console.log('>>>',err)
+                    console.log(text)
+                })
         }
             
             function deleteJoke(id){
@@ -416,9 +419,10 @@
 
             // 7 Timer API
             function weather(position){
-                $('#mainPage').append(
+                $('#weather').append(
                   `
                     <img src='http://www.7timer.info/bin/civil.php?lon=${position.coords.longitude}&lat=${position.coords.latitude}&ac=0&lang=en&unit=metric&output=internal&tzshift=0'/>
+                    
                   `
                  )
             }
@@ -441,15 +445,17 @@
                     //showLogin()
                     register();
                 })
-                $("#addNew").on('submit' , function (e) {
+                $("#create-form").on('submit' , function (e) {
                     e.preventDefault();
                     let newData = {           
-                        imageUrl : $("#inewUrl").val(),
+                        imageUrl : $("#newUrl").val(),
                         description : $("#newCaption").val(),
                     }
                     createNew(newData)
                     // login();
                 })
+                
+                
 
             })
         </script>
