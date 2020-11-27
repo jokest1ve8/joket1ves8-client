@@ -75,7 +75,11 @@
 
     <!-- Main Page -->
     <div class="container-fluid text-white text-center mt-10" id="mainPage" >
-        <button type="button" id="btn-add" onclick="createPage()" class="btn btn-warning btn-lg">&#128512 Bring me your Jokes &#128512</button>
+        <div class=" d-flex justify-content-center ">
+        <button type="button" id="btn-add" onclick="createPage()" class="btn btn-warning btn-lg mr-1">&#128512 Bring me your Jokes &#128512</button>
+        <button type="button" id="btn-myjokes" onclick="myJokes()" class="btn btn-outline-dark btn-lg mr-1">Your Jokes</button>
+        <!-- <button type="button" id="btn-myJokes" onclick="createPage()" class="btn btn-outline-dark btn-lg ml-1">Your Jokes</button> -->
+        </div>
         <br><br>
         <div class="row" id="listJokesMainPage">
 
@@ -104,6 +108,47 @@
             </div>
         </form>
     </div>
+
+    <!-- My Jokes -->
+    <div class="container-fluid text-white text-center mt-10" id="myJokes" >
+        <br><br><br>
+        <h1 class="text-dark">All of Your Jokes</h1>
+        <hr class="my-4">
+        <button type="button" onclick="mainPage()" class="btn btn-secondary btn-sm ">&#8678 Back</button>
+        <br><br>
+        <div class="row">
+            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
+                <button type="button" onclick="deleteJoke()" class="btn btn-outline-danger">DELETE</button>
+                <img src="https://awsimages.detik.net.id/community/media/visual/2020/08/11/meme-beda-anak-twitter-vs-anak-instagram-kamu-yang-mana-5.png?w=750&q=90"
+                    class="card-img-top">
+                <div class="card">
+                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
+                        bulk of the card's content.</p>
+                </div>
+            </div>
+            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
+                <button type="button" class="btn btn-outline-danger">DELETE</button>
+
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDIcyTO8Fw2T1yVyI3R73_4XoUyl5c05-AcQ&usqp=CAU"
+                    class="card-img-top">
+                <div class="card">
+                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
+                        bulk of the card's content.</p>
+                </div>
+            </div>
+            <div class=" col-sm-4 pt-5 pb-5 " style="width: 18rem;">
+                <button type="button" class="btn btn-outline-danger">DELETE</button>
+
+                <img src="https://cdn.kinsights.com/cache/82/51/825185b61ee204ce35a5aa9495c73adf.jpg"
+                    class="card-img-top">
+                <div class="card">
+                    <p class="card-text text-body">Some quick example text to build on the card title and make up the
+                        bulk of the card's content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- userPage -->
     
@@ -138,6 +183,7 @@
                 $("#mainPage").hide()
                 $("#register-form").show()
                 $("#addNew").hide()
+                $("#myJokes").hide()
                 $("#logout-btn").hide()
                 $("#userPage").hide()
             }
@@ -146,6 +192,7 @@
                 $("#register-form").hide()
                 $("#mainPage").hide()
                 $("#addNew").hide()
+                $("#myJokes").hide()
                 $("#userPage").hide()
                 $("#logout-btn").hide()
             }
@@ -155,8 +202,17 @@
                 $("#mainPage").show()
                 $("#addNew").hide()
                 $("#logout-btn").show()
+                $("#myJokes").hide()
                 $("#userPage").hide()
 
+            }
+            function myJokes(){
+                $("#loginPage").hide()
+                $("#register-form").hide()
+                $("#mainPage").hide()
+                $("#addNew").hide()
+                $("#myJokes").show()
+                $("#logout-btn").show()
             }
 
             function createPage(){
@@ -165,6 +221,7 @@
                 $("#mainPage").hide()
                 $("#addNew").show()
                 $("#logout-btn").show()
+                $("#myJokes").hide()
                 $("#userPage").hide()
                 
             }
@@ -319,8 +376,8 @@
 
                 $("#login-form").on('submit' , function (e) {
                     e.preventDefault();
-                    login();
-                    //mainPage()
+                    // login();
+                    mainPage()
                 })
                 $("#register-form").on('submit' , function (e) {
                     e.preventDefault();
@@ -332,11 +389,11 @@
         </script>
 
     <!-- Responsive Voice API -->
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=v4TToiND"></script>
+    <!-- <script src="https://code.responsivevoice.org/responsivevoice.js?key=v4TToiND"></script>
     <Script>
         var say = prompt ("Ketik untuk bicara")
         responsiveVoice.speak('kemarin saya beli permen karet, pas saya kunyah rasanya pedes, ternyata karetnya dua. hahahahhahaha lucu kan lucu kan', "Indonesian Male")
-    </Script>
+    </Script> -->
 </body>
 
 </html>
