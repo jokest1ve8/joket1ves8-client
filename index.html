@@ -5,6 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id" content="190393742197-si6eu1vj1krk6vam3d5o17m7tv9v8ifk.apps.googleusercontent.com">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -27,7 +28,7 @@
     <!-- Login Form -->
     <div >
         <div class=" jumbotron" id="loginPage">
-            <h1 class="alert text-warning text-center">Login Page</h1>
+            <h1 style="font-family: 'Courier New', Courier, monospace; font-weight: bold;" class="alert text-warning text-center">Login Page</h1>
             <form id="login-form" class="container">
                 <div class="form-group col-5 ">
                     <label class="text-warning" for="loginInputEmail">Email address</label>
@@ -38,17 +39,23 @@
                     <label class="text-warning" for="loginInputPassword">Password</label>
                     <input type="password" class="form-control" id="loginInputPassword" required>
                 </div>
-                <div class="text-center">
+               
+                <div class="text-center"> 
                     <button type="submit" class="btn btn-warning btn-lg ">Login</button>
             </form>
-            <button type="button" onclick="registerForm()" class="btn btn-info btn-lg ">Register</button>
-        </div>
+                    <button type="button" onclick="registerForm()" class="btn btn-info btn-lg ">Register</button>
+                    <div class="g-signin2 btn" data-onsuccess="onSignIn"></div>
+
+                </div>
+            
+               
+            </div>
     </div>
 
     <!-- Register Form -->
     <form id="register-form" class="container">
         <br><br>
-        <h1 class="alert text-info text-center">Register Page</h1>
+        <h1 style="font-family: 'Courier New', Courier, monospace; font-weight: bold;" class="alert text-info text-center">Register Page</h1>
 
         <div class="form-group">
             <label for="InputFirstname">First name</label>
@@ -107,7 +114,7 @@
     <!-- add new Jokes -->
 
     <div class=" jumbotron" id="addNew">
-        <h1 class="alert text-dark text-center"> <strong>Your Jokes </strong></h1>
+        <h1 style="font-family: 'Courier New', Courier, monospace; font-weight: bold;" class="alert text-dark text-center"> <strong>Your Jokes </strong></h1>
         <form id="create-form" class="container">
             <div class="form-group col-5 ">
                 <label class="text-dark" for="newUrl"> <b>Url Picture </b> </label>
@@ -129,7 +136,7 @@
     <!-- My Jokes -->
     <div class="container-fluid text-white text-center mt-10" id="myJokes" >
         <br><br><br>
-        <h1 class="text-dark">All of Your Jokes</h1>
+        <h1 style="font-family: 'Courier New', Courier, monospace; font-weight: bold;" class="text-dark">All of Your Jokes</h1>
         <hr class="my-4">
         <button type="button" onclick="mainPage()" class="btn btn-secondary btn-sm ">&#8678 Back</button>
         <br><br>
@@ -141,7 +148,7 @@
 
     
 
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -270,8 +277,10 @@
                                 class="card-img-top">
                             <div class="card">
                                 <p class="card-text text-body">${response[i].description}</p>
+                                <button type="button" id="btn-delete" onclick="deleteJoke(${response[i].id})" class="btn btn-outline-danger"> Delete &#128546</button>
                             </div>
                         </div>`)
+
                     }
                 })
                 .fail(error => {
@@ -303,6 +312,24 @@
                 }) 
             }
 
+            function onSignIn(googleUser) {
+                let googleToken = googleUser.getAuthResponse().id_token;
+                $.ajax({
+                    url: `${baseUrl}/googleLogin`,
+                    method: 'POST',
+                    data: {
+                        googleToken
+                    }
+                })
+                .done(response =>{
+                    localStorage.setItem('access_token', response.access_token)
+                    mainPage()
+
+                })
+                .fail(err =>{
+                    console.log(err)
+                })
+            }
             function register(){
                 const firstname=$("#InputFirstname").val()
                 const lastname=$("#InputLastname").val()
