@@ -118,7 +118,7 @@
         <form id="create-form" class="container">
             <div class="form-group col-5 ">
                 <label class="text-dark" for="newUrl"> <b>Url Picture </b> </label>
-                <input type="email" class="form-control" id="newUrl" placeholder="put the url link of your picture here" aria-describedby="emailHelp">
+                <input type="text" class="form-control" id="newUrl" placeholder="put the url link of your picture here" aria-describedby="emailHelp">
             </div>
             <div class="form-group col-5">
                 <label class="text-dark"  for="newCaption"> <b> Caption</b></label>
@@ -300,6 +300,7 @@
                     }
                 })
                 .done(response => {
+                    console.log('loginsubmit')
                     localStorage.setItem('access_token',response.access_token)
                     mainPage();
                 })
@@ -377,6 +378,26 @@
                 })
             }
 
+            function createNew(payload){
+        let access_token = localStorage.access_token
+            $.ajax({
+                method : "POST",
+                url : `${baseUrl}/jokes`,
+                data :payload,
+                headers: {access_token}
+            })
+            .done(response =>{
+                console.log(response)
+                fetchJokes()
+                $("#addNew").trigger("reset")
+
+            })
+            .fail((err, text) =>{
+                console.log('>>>',err)
+                console.log(text)
+            })
+        }
+            
             function deleteJoke(id){
                 $.ajax({
                     url:baseUrl+'/jokes/'+id,
@@ -413,12 +434,21 @@
                 $("#login-form").on('submit' , function (e) {
                     e.preventDefault();
                     // login();
-                    mainPage()
+                    login()
                 })
                 $("#register-form").on('submit' , function (e) {
                     e.preventDefault();
                     //showLogin()
                     register();
+                })
+                $("#addNew").on('submit' , function (e) {
+                    e.preventDefault();
+                    let newData = {           
+                        imageUrl : $("#inewUrl").val(),
+                        description : $("#newCaption").val(),
+                    }
+                    createNew(newData)
+                    // login();
                 })
 
             })
